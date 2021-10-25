@@ -36,6 +36,7 @@ they make it easier to manage it all.
 */
 let board = ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'];
 const askIndex = `Please enter an index from 1 to ${board.length}`;
+const DIFFICULTY = "Choose your difficulty (easy, normal, hard):"
 let givenIndex;
 let numberOfMines = 1;
 let safeLandings = 0;
@@ -48,10 +49,27 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-let mine = getRandomInt(1, 10);
-board[mine] = "M";
-console.log(board);
+function setBoard(){
+    let difficulty = prompt(DIFFICULTY);
+    switch(difficulty){
+        case 'easy':
+            numberOfMines = 1;
+            break;
+        case 'normal':
+            numberOfMines = 2;
+            break;
+        case 'hard':
+            numberOfMines = 3;
+            break;
+    }
+    for(let i = 0; i < numberOfMines; i++){
+        let mine = getRandomInt(1, 10);
+        board[mine] = "M";
+    }
+    console.log(board);
+}
 
+setBoard();
 while(safeSpaces != safeLandings && !endOfGame){
     givenIndex = prompt(askIndex);
     if(givenIndex == null){
